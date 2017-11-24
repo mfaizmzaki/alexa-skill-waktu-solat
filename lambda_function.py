@@ -6,7 +6,7 @@ API_BASE="https://waktu-solat-api.herokuapp.com/api/v1/prayer_times.json?negeri=
 
 def lambda_handler(event, context):
     if (event["session"]["application"]["applicationId"] !=
-            "amzn1.ask.skill.53bc8388-735f-4e5e-82a4-6cf3b9f79be8"):
+            "amzn1.ask.skill.53bc8388-xxxx-xxxe-82a4-xxxxxxxxxbe8"):
         raise ValueError("Invalid Application ID")
 
     if event["session"]["new"]:
