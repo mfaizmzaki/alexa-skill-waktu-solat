@@ -6,13 +6,13 @@ Amazon's Alexa Skill for Amazon Echo/Echo Dot. This skill allows Alexa to return
 - Python 2.7
 
 # Utterences
-GetAllPrayerTimes prayer times
-GetAllPrayerTimes what are the prayer times
-GetAllPrayerTimes prayers
-GetPrayerTime what time is {Prayer}
-GetPrayerTime {Prayer} at what time
-GetPrayerTime {Prayer}
-GetPrayerTime When is {Prayer}
+- GetAllPrayerTimes prayer times
+- GetAllPrayerTimes what are the prayer times
+- GetAllPrayerTimes prayers
+- GetPrayerTime what time is {Prayer}
+- GetPrayerTime {Prayer} at what time
+- GetPrayerTime {Prayer}
+- GetPrayerTime When is {Prayer}
 
 # Prayer Times
 - Imsak
@@ -25,6 +25,7 @@ GetPrayerTime When is {Prayer}
 
 # Still needed
 - Time until next prayer 
+- More variety of sample utterences
 - Prayer times for all location based on voice prompt
 - Push notification when it's time for prayer
 
