@@ -1,0 +1,25 @@
+{
+  "intents": [
+    {
+      "intent": "GetAllPrayerTimes"
+    },
+    {
+      "slots": [
+        {
+          "name": "Prayer",
+          "type": "LIST_OF_PRAYER_TIMES"
+        }
+      ],
+      "intent": "GetPrayerTime"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    }
+  ]
+}
