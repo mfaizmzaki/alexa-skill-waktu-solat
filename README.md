@@ -16,17 +16,15 @@ Amazon's Alexa Skill for Amazon Echo/Echo Dot. This skill allows Alexa to return
 
 # Prayer Times
 - Imsak
-- Subuh
+- Dawn (Subuh)
 - Syuruk
 - Zohor
 - Asar
 - Maghrib
-- Isyak
+- Night (Isyak)
 
 # Still needed
-- Time until next prayer 
+- Time until next prayer
 - More variety of sample utterences
 - Prayer times for all location based on voice prompt
 - Push notification when it's time for prayer
-
-
