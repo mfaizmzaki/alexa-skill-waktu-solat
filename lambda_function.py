@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib2
 import json
+from datetime import datetime
 
 API_BASE="https://waktu-solat-api.herokuapp.com/api/v1/prayer_times.json?negeri=kedah&zon=kuala%20muda"
 
@@ -33,6 +34,8 @@ def on_intent(intent_request, session):
         return get_all_prayer_times()
     elif intent_name == "GetPrayerTime":
         return get_prayer_time(intent)
+    elif intent_name == "GetTimeRemaining":
+        return get_time_remaining(intent)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
@@ -102,6 +105,38 @@ def get_prayer_time(intent):
         prayer_code = get_prayer_code(prayer_name.lower())
 
         if (prayer_code != 99):
+            now = datetime.strptime(datetime.now().strftime('%H:%M'), '%H:%M')
+            prayer_time = datetime.strptime(waktu_solat['data']['zon'][0]['waktu_solat'][prayer_code]['time'], '%H:%M')
+            countdown = prayer_time - now
+            minutes = countdown.seconds/60
+            h,m = divmod(minutes, 60)
+            card_title = "Time remaining until " + prayer_name.title() + " prayer"
+            speech_output = "You have " + h + " hours and " + m " until " prayer_name.title() + " prayer."
+
+            reprompt_text = ""
+
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
+
+def get_time_remaining(intent):
+    session_attributes = {}
+    card_title = "Time Remaining Until Next Prayer"
+    speech_output = "I'm not sure which prayer you wanted the time for. Please try again"
+    reprompt_text = "I'm not sure which prayer you wanted the time for. Try asking time until Asar for example."
+    should_end_session = False
+
+    response = urllib2.urlopen(API_BASE)
+    waktu_solat = json.load(response)
+
+    if "Prayer" in intent["slots"]:
+        prayer_name = intent["slots"]["Prayer"]["value"]
+        if prayer_name == 'Subuh':
+            prayer_name = 'Dawn'
+        if prayer_name == 'Isyak':
+            prayer_name = 'Night'
+        prayer_code = get_prayer_code(prayer_name.lower())
+
+        if (prayer_code != 99):
             card_title = prayer_name.title() + " prayer time."
             speech_output = "The time for " + prayer_name + " prayer is " + waktu_solat['data']['zon'][0]['waktu_solat'][prayer_code]['time']
 
@@ -109,6 +144,7 @@ def get_prayer_time(intent):
 
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
+
 
 def get_prayer_code(prayer_name):
     return {
