@@ -73,15 +73,15 @@ def get_all_prayer_times():
     response = urllib2.urlopen(API_BASE)
     waktu_solat = json.load(response)
 
-    speech_output = "Prayer times are as follows. "
+    speech_output = "Prayer times are as follows.\n"
 
     for prayers in waktu_solat['data']['zon'][0]['waktu_solat']:
-        if prayers['name'] == 'Subuh':
-            speech_output += "Dawn " + prayers['time'] + " "
-        elif prayers['name'] == 'Isyak':
-            speech_output += "Night " + prayers['time'] + " "
+        if prayers['name'] == 'subuh':
+            speech_output += "Dawn " + prayers['time'] + ",\n"
+        elif prayers['name'] == 'isyak':
+            speech_output += "Night " + prayers['time'] + ",\n"
         else:
-            speech_output += prayers['name'] + " " + prayers['time'] + " "
+            speech_output += prayers['name'].title() + " " + prayers['time'] + ",\n"
 
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
