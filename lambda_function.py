@@ -73,7 +73,12 @@ def get_all_prayer_times():
     speech_output = "Prayer times are as follows. "
 
     for prayers in waktu_solat['data']['zon'][0]['waktu_solat']:
-        speech_output += prayers['name'] + " " + prayers['time'] + " "
+        if prayers['name'] == 'Subuh':
+            speech_output += "Dawn " + prayers['time'] + " "
+        elif prayers['name'] == 'Isyak':
+            speech_output += "Night " + prayers['time'] + " "
+        else:
+            speech_output += prayers['name'] + " " + prayers['time'] + " "
 
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -90,6 +95,10 @@ def get_prayer_time(intent):
 
     if "Prayer" in intent["slots"]:
         prayer_name = intent["slots"]["Prayer"]["value"]
+        if prayer_name == 'Subuh':
+            prayer_name = 'Dawn'
+        if prayer_name == 'Isyak':
+            prayer_name = 'Night'
         prayer_code = get_prayer_code(prayer_name.lower())
 
         if (prayer_code != 99):
@@ -104,12 +113,12 @@ def get_prayer_time(intent):
 def get_prayer_code(prayer_name):
     return {
         "imsak": 0,
-        "subuh": 1,
+        "dawn": 1,
         "syuruk": 2,
         "zohor": 3,
         "asar": 4,
         "maghrib": 5,
-        "isyak": 6
+        "night": 6
     }.get(prayer_name, 99)
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session):
