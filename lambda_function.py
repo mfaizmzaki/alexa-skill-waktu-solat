@@ -128,7 +128,7 @@ def get_time_remaining(intent):
     response = urllib2.urlopen(API_BASE)
     waktu_solat = json.load(response)
 
-    if "Prayer" in intent["slots"]:
+    if "PrayerTime" in intent["slots"]:
         prayer_name = intent["slots"]["Prayer"]["value"]
         if prayer_name == 'Subuh':
             prayer_name = 'Dawn'
