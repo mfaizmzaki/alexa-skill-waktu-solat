@@ -13,6 +13,8 @@ Amazon's Alexa Skill for Amazon Echo/Echo Dot. This skill allows Alexa to return
 - GetPrayerTime {Prayer} at what time
 - GetPrayerTime {Prayer}
 - GetPrayerTime When is {Prayer}
+- GetTimeRemaining Time until {PrayerTime}
+- GetTimeRemaining How long until {PrayerTime}
 
 # Prayer Times
 - Imsak
@@ -24,7 +26,7 @@ Amazon's Alexa Skill for Amazon Echo/Echo Dot. This skill allows Alexa to return
 - Night (Isyak)
 
 # Still needed
-- Time until next prayer
+- Time until next prayer where Alexa determines the nearest next prayer automatically.
 - More variety of sample utterences
 - Prayer times for all location based on voice prompt
 - Push notification when it's time for prayer
