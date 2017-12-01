@@ -15,6 +15,8 @@ Amazon's Alexa Skill for Amazon Echo/Echo Dot. This skill allows Alexa to return
 - GetPrayerTime When is {Prayer}
 - GetTimeRemaining Time until {PrayerTime}
 - GetTimeRemaining How long until {PrayerTime}
+- AMAZON.StopIntent Thank you
+- AMAZON.StopIntent Thanks
 
 # Prayer Times
 - Imsak
