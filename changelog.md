@@ -18,3 +18,7 @@ Date format: YYYY-MM-DD
 - Added new feature GetTimeRemaining which informs the time remaining until a specific prayer time.
 - Added new utterances to support the new GetTimeRemaining feature.
 - Added comma and new line to GetAllPrayerTimes card to slow down Alexa's speech.
+
+## [0.2.1] - 2017-12-01
+### Added
+- Minor fix: Added 'Thank you' and 'Thanks' as utterances to allow the skill to stop running. 
