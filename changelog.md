@@ -27,5 +27,5 @@ Date format: YYYY-MM-DD
 - Minor fix: Added 'Thank you' and 'Thanks' as utterances to allow the skill to stop running.
 
 ## [0.3.1] - 2017-12-02
-### Added
+### Fixed
 - Fixed bug could not identify the next prayer because of now() method by replacing it with time() method.
