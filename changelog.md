@@ -23,5 +23,9 @@ Date format: YYYY-MM-DD
 ### Added
 - Added new feature to get the time remaining to the nearest next prayer.
 - Added new utterances to support the new feature.
-- Added a code workaround to check if a slot is filled. 
+- Added a code workaround to check if a slot is filled.
 - Minor fix: Added 'Thank you' and 'Thanks' as utterances to allow the skill to stop running.
+
+## [0.3.1] - 2017-12-02
+### Added
+- Fixed bug could not identify the next prayer because of now() method by replacing it with time() method.
