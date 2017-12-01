@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import urllib2
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 API_BASE="https://waktu-solat-api.herokuapp.com/api/v1/prayer_times.json?negeri=kedah&zon=kuala%20muda"
 
@@ -97,11 +97,12 @@ def get_time_remaining(intent):
     waktu_solat = json.load(response)
 
     now = datetime.strptime(datetime.utcnow().strftime('%H:%M'), '%H:%M') + timedelta(hours=8)
+    now = now.time()
 
     if "PrayerTime" in intent["slots"]:
         if 'value' not in intent["slots"]["PrayerTime"]:
             for prayers in waktu_solat['data']['zon'][0]['waktu_solat']:
-                prayer_time = datetime.strptime(prayers['time'], '%H:%M')
+                prayer_time = datetime.strptime(prayers['time'], '%H:%M').time()
 
                 if (now > prayer_time) == False:
                     h,m = get_time_difference(now, prayer_time)
@@ -117,7 +118,7 @@ def get_time_remaining(intent):
             prayer_code = get_prayer_code(prayer_name.lower())
 
             if prayer_code != 99:
-                prayer_time = datetime.strptime(waktu_solat['data']['zon'][0]['waktu_solat'][prayer_code]['time'], '%H:%M')
+                prayer_time = datetime.strptime(waktu_solat['data']['zon'][0]['waktu_solat'][prayer_code]['time'], '%H:%M').time()
                 h,m = get_time_difference(now, prayer_time)
                 card_title = "Time remaining until " + prayer_name.title() + " prayer"
                 speech_output = "You have " + str(h) + " hours and " + str(m) + " minutes until " + prayer_name.title() + " prayer."
@@ -167,7 +168,7 @@ def get_prayer_code(prayer_name):
     }.get(prayer_name, 99)
 
 def get_time_difference(now, after):
-    countdown = after - now
+    countdown = datetime.combine(date.today(), after) - datetime.combine(date.today(), now)
     m,s = divmod(countdown.seconds, 60)
     h,m = divmod(m, 60)
     return h,m
