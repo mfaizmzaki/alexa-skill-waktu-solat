@@ -96,24 +96,33 @@ def get_time_remaining(intent):
     response = urllib2.urlopen(API_BASE)
     waktu_solat = json.load(response)
 
+    now = datetime.strptime(datetime.utcnow().strftime('%H:%M'), '%H:%M') + timedelta(hours=8)
+
     if "PrayerTime" in intent["slots"]:
-        prayer_name = intent["slots"]["PrayerTime"]["value"]
-        if prayer_name == 'Subuh':
-            prayer_name = 'Dawn'
-        if prayer_name == 'Isyak':
-            prayer_name = 'Night'
-        prayer_code = get_prayer_code(prayer_name.lower())
+        if 'value' not in intent["slots"]["PrayerTime"]:
+            for prayers in waktu_solat['data']['zon'][0]['waktu_solat']:
+                prayer_time = datetime.strptime(prayers['time'], '%H:%M')
 
-        if (prayer_code != 99):
-            now = datetime.strptime(datetime.utcnow().strftime('%H:%M'), '%H:%M') + timedelta(hours=8)
-            prayer_time = datetime.strptime(waktu_solat['data']['zon'][0]['waktu_solat'][prayer_code]['time'], '%H:%M')
-            countdown = prayer_time - now
-            m,s = divmod(countdown.seconds, 60)
-            h,m = divmod(m, 60)
-            card_title = "Time remaining until " + prayer_name.title() + " prayer"
-            speech_output = "You have " + str(h) + " hours and " + str(m) + " minutes until " + prayer_name.title() + " prayer."
+                if (now > prayer_time) == False:
+                    h,m = get_time_difference(now, prayer_time)
+                    speech_output = "You have " + str(h) + " hours and " + str(m) + " minutes until " + prayers['name'].title() + " prayer."
+                    reprompt_text = ""
+                    break
+        else:
+            prayer_name = intent["slots"]["PrayerTime"]["value"]
+            if prayer_name == 'Subuh':
+                prayer_name = 'Dawn'
+            if prayer_name == 'Isyak':
+                prayer_name = 'Night'
+            prayer_code = get_prayer_code(prayer_name.lower())
 
-            reprompt_text = ""
+            if prayer_code != 99:
+                prayer_time = datetime.strptime(waktu_solat['data']['zon'][0]['waktu_solat'][prayer_code]['time'], '%H:%M')
+                h,m = get_time_difference(now, prayer_time)
+                card_title = "Time remaining until " + prayer_name.title() + " prayer"
+                speech_output = "You have " + str(h) + " hours and " + str(m) + " minutes until " + prayer_name.title() + " prayer."
+
+                reprompt_text = ""
 
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -136,7 +145,7 @@ def get_prayer_time(intent):
             prayer_name = 'Night'
         prayer_code = get_prayer_code(prayer_name.lower())
 
-        if (prayer_code != 99):
+        if prayer_code != 99:
             card_title = prayer_name.title() + " prayer time."
             speech_output = "The time for " + prayer_name + " prayer is " + waktu_solat['data']['zon'][0]['waktu_solat'][prayer_code]['time']
 
@@ -156,6 +165,12 @@ def get_prayer_code(prayer_name):
         "maghrib": 5,
         "night": 6
     }.get(prayer_name, 99)
+
+def get_time_difference(now, after):
+    countdown = after - now
+    m,s = divmod(countdown.seconds, 60)
+    h,m = divmod(m, 60)
+    return h,m
 
 def build_speechlet_response(title, output, reprompt_text, should_end_session):
     return {
