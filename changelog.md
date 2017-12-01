@@ -16,5 +16,5 @@ Date format: YYYY-MM-DD
 - Renamed Subuh and Isyak to Dawn and Night respectively in lambda_function.py.
 - Replaced Subuh and Isyak prayer names to Dawn and Night respectively in README.md
 - Added new feature GetTimeRemaining which informs the time remaining until a specific prayer time.
-- Added new utterences to support the new GetTimeRemaining feature.
-- Added comma and new line to GetAllPrayerTimes card to slow down Alexa's speech. 
+- Added new utterances to support the new GetTimeRemaining feature.
+- Added comma and new line to GetAllPrayerTimes card to slow down Alexa's speech.

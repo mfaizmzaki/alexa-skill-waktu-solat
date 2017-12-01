@@ -5,7 +5,7 @@ Amazon's Alexa Skill for Amazon Echo/Echo Dot. This skill allows Alexa to return
 - AWS Lambda
 - Python 2.7
 
-# Utterences
+# Utterances
 - GetAllPrayerTimes prayer times
 - GetAllPrayerTimes what are the prayer times
 - GetAllPrayerTimes prayers
