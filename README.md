@@ -6,17 +6,18 @@ Amazon's Alexa Skill for Amazon Echo/Echo Dot. This skill allows Alexa to return
 - Python 2.7
 
 # Utterances
+- AMAZON.StopIntent Thank you
+- AMAZON.StopIntent Thanks
 - GetAllPrayerTimes prayer times
 - GetAllPrayerTimes what are the prayer times
-- GetAllPrayerTimes prayers
 - GetPrayerTime what time is {Prayer}
 - GetPrayerTime {Prayer} at what time
 - GetPrayerTime {Prayer}
 - GetPrayerTime When is {Prayer}
 - GetTimeRemaining Time until {PrayerTime}
 - GetTimeRemaining How long until {PrayerTime}
-- AMAZON.StopIntent Thank you
-- AMAZON.StopIntent Thanks
+- GetTimeRemaining How long until next prayer
+- GetTimeRemaining Next prayer
 
 # Prayer Times
 - Imsak
